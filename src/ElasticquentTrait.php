@@ -370,7 +370,7 @@ trait ElasticquentTrait
     {
         $params = array(
             'index' => $this->getIndexName(),
-            'type' => $this->getTypeName(),
+            // 'type' => $this->getTypeName(),
         );
 
         if ($getIdIfPossible && $this->getKey()) {
@@ -452,11 +452,11 @@ trait ElasticquentTrait
         $mapping = $instance->getBasicEsParams();
 
         $params = array(
-            '_source' => array('enabled' => true),
+            // '_source' => array('enabled' => true),
             'properties' => $instance->getMappingProperties(),
         );
 
-        $mapping['body'][$instance->getTypeName()] = $params;
+        $mapping['body'] = $params;
 
         return $instance->getElasticSearchClient()->indices()->putMapping($mapping);
     }
@@ -531,8 +531,8 @@ trait ElasticquentTrait
 
         $mappingProperties = $instance->getMappingProperties();
         if (!is_null($mappingProperties)) {
-            $index['body']['mappings'][$instance->getTypeName()] = [
-                '_source' => array('enabled' => true),
+            $index['body']['mappings'] = [
+                // '_source' => array('enabled' => true),
                 'properties' => $mappingProperties,
             ];
         }
@@ -624,9 +624,12 @@ trait ElasticquentTrait
      * @param  array  $result
      * @return \Elasticquent\ElasticquentResultCollection
      */
-    public static function hydrateElasticsearchResult(array $result)
+    public static function hydrateElasticsearchResult($result)
     {
+        $result = json_decode((string)$result->getBody(), true);
+
         $items = $result['hits']['hits'];
+
         return static::hydrateElasticquentResult($items, $meta = $result);
     }
 
