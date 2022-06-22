@@ -1,4 +1,4 @@
-# Elasticquent 8.2
+# Elasticquent for Elasticsearch 8.2
 
 _Elasticsearch for Eloquent Laravel Models_
 
