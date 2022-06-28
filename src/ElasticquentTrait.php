@@ -311,6 +311,10 @@ trait ElasticquentTrait
         // the index, or get the document from the index.
         $params['id'] = $this->getKey();
 
+        // var_dump($params);
+
+        // exit;
+
         return $this->getElasticSearchClient()->index($params);
     }
 
@@ -536,6 +540,8 @@ trait ElasticquentTrait
                 'properties' => $mappingProperties,
             ];
         }
+
+        $index['body']['settings']['index.mapping.total_fields.limit'] = 2000;
 
         return $client->indices()->create($index);
     }

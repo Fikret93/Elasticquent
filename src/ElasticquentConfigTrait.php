@@ -15,12 +15,12 @@ trait ElasticquentConfigTrait
         // config file and if there is a default index.
         $index_name = $this->getElasticConfig('default_index');
 
-        if (!empty($index_name)) {
-            return $index_name;
+        if (empty($index_name)) {
+            $index_name = 'default';
         }
 
         // Otherwise we will just go with 'default'
-        return 'default';
+        return $index_name.'_'.$this->getTable();
     }
 
     /**

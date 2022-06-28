@@ -44,7 +44,6 @@ trait ElasticquentCollectionTrait
                 $params['body'][] = array(
                     'index' => array(
                         '_id' => $item->getKey(),
-                        // '_type' => $item->getTypeName(),
                         '_index' => $item->getIndexName(),
                     ),
                 );
@@ -54,22 +53,7 @@ trait ElasticquentCollectionTrait
 
             $result = $this->getElasticSearchClient()->bulk($params);
 
-            // $params = [
-            //     'index' => 'mebel',
-            //     'body'  => [
-            //         'query' => [
-            //             'match' => [
-            //                 'title' => '1'
-            //             ]
-            //         ]
-            //     ]
-            // ];
-
-            // $results = $this->getElasticSearchClient()->search($params);
-
-
-            // var_dump((string)$result->getBody());
-            // exit;
+            $result = json_decode($result->getBody(), true);
 
             // Check for errors
             if ( (array_key_exists('errors', $result) && $result['errors'] != false ) || (array_key_exists('Message', $result) && stristr('Request size exceeded', $result['Message']) !== false)) {
