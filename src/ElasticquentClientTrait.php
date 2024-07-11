@@ -15,8 +15,8 @@ trait ElasticquentClientTrait
     {
         $config = $this->getElasticConfig();
 
-        if (class_exists('\Elastic\Elasticsearch\ClientBuilder')) {
-            return \Elastic\Elasticsearch\ClientBuilder::fromConfig($config);
+        if (class_exists('\OpenSearch\ClientBuilder')) {
+            return \OpenSearch\ClientBuilder::fromConfig($config);
         }
         
         return new \Elastic\Elasticsearch\Client($config);
