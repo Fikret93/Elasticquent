@@ -53,7 +53,7 @@ trait ElasticquentCollectionTrait
 
             $result = $this->getElasticSearchClient()->bulk($params);
 
-            $result = json_decode($result->getBody(), true);
+            // $result = json_decode($result->getBody(), true);
 
             // Check for errors
             if ( (array_key_exists('errors', $result) && $result['errors'] != false ) || (array_key_exists('Message', $result) && stristr('Request size exceeded', $result['Message']) !== false)) {
